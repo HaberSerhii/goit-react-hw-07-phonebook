@@ -10,6 +10,8 @@ import {
   selectError,
   selectIsLoading,
 } from '../../redux/contactsSelectors';
+import { Error } from '../Error/Error';
+import { Loader } from '../Loading/Loading';
 
 export function App() {
   const dispatch = useDispatch();
@@ -20,7 +22,7 @@ export function App() {
 
   useEffect(() => {
     dispatch(fetchContacts());
-  }, [dispatch, fetchContacts]);
+  }, [dispatch]);
 
   return (
     <Container>

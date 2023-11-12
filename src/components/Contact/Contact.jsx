@@ -7,7 +7,7 @@ import {
 } from './Contact.styled';
 import { deleteContact } from '../../redux/contactsOperations';
 
-const Contact = ({ contact }) => {
+export const Contact = ({ contact }) => {
   const dispatch = useDispatch();
   const { name, phone, id } = contact;
 
@@ -24,5 +24,3 @@ const Contact = ({ contact }) => {
     </ListItem>
   );
 };
-
-export default Contact;
