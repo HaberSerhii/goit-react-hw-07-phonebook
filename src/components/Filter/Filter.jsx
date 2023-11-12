@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { FilterContainer, FilterInput, FilterLabel } from './Filter.styled';
 import { changeFilter } from '../../redux/filterSlice';
-import { getFilter } from '../../redux/selectors';
+import { selectFilter } from '../../redux/filterSelectors';
 
 export const Filter = () => {
-  const filterValue = useSelector(getFilter);
+  const filterValue = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   const handleFilterChange = evt => {

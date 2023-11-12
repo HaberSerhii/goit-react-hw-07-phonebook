@@ -1,20 +1,28 @@
+import { useDispatch } from 'react-redux';
 import {
   ItemContainer,
   ItemDelete,
   ItemText,
   ListItem,
 } from './Contact.styled';
+import { deleteContact } from '../../redux/contactsOperations';
 
-export const Contact = ({ name, number, deleteContact }) => {
+const Contact = ({ contact }) => {
+  const dispatch = useDispatch();
+  const { name, phone, id } = contact;
+
+  const handleDeleteContact = () => dispatch(deleteContact(id));
   return (
     <ListItem>
       <ItemContainer>
         <ItemText>{name}</ItemText>
-        <ItemText>{number}</ItemText>
-        <ItemDelete type="button" onClick={deleteContact}>
+        <ItemText>{phone}</ItemText>
+        <ItemDelete type="button" onClick={handleDeleteContact}>
           Видалити
         </ItemDelete>
       </ItemContainer>
     </ListItem>
   );
 };
+
+export default Contact;

@@ -1,12 +1,26 @@
-import { useSelector } from 'react-redux';
-import { getContacts } from '../../redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
 import { Container } from './App.syled';
 import { ContactsForm } from '../ContactsForm/ContactsForm';
 import { Filter } from '../Filter/Filter';
 import { ContactsList } from '../ContactsList/ContactsList';
+import { useEffect } from 'react';
+import { fetchContacts } from '../../redux/contactsOperations';
+import {
+  selectContacts,
+  selectError,
+  selectIsLoading,
+} from '../../redux/contactsSelectors';
 
 export function App() {
-  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch, fetchContacts]);
 
   return (
     <Container>
@@ -15,6 +29,10 @@ export function App() {
       <h2>Контакти</h2>
       <Filter />
       {contacts.length !== 0 && <ContactsList />}
+      {error && (
+        <Error text={'Something went wrong, please reload this page'} />
+      )}
+      {isLoading && <Loader />}
     </Container>
   );
 }

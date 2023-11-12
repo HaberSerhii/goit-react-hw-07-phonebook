@@ -1,9 +1,6 @@
 import { Formik, ErrorMessage } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
 import Notiflix from 'notiflix';
 import * as yup from 'yup';
-import { getContacts } from '../../redux/selectors';
-import { addContact } from '../../redux/contactsSlice';
 import {
   AddButton,
   ContactErrorMessage,
@@ -11,6 +8,9 @@ import {
   ContactLabel,
   ContanctForm,
 } from './ContactsForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from '../../redux/contactsOperations';
+import { selectContacts } from '../../redux/contactsSelectors';
 
 const schema = yup.object().shape({
   name: yup.string().required(`Це поле обов'язкове для заповнення`),
@@ -25,9 +25,9 @@ const schema = yup.object().shape({
 
 export const ContactsForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
-  const handleSubmitForm = ({ name, number }, { resetForm }) => {
+  const handleSubmitForm = ({ name, phone }, { resetForm }) => {
     const sameName = contacts.find(contact => contact.name === name);
 
     if (sameName) {
@@ -36,10 +36,9 @@ export const ContactsForm = () => {
       );
     }
 
-    dispatch(addContact(name, number));
+    dispatch(addContact({ name, phone }));
     resetForm();
   };
-
   return (
     <Formik
       initialValues={{ name: '', number: '' }}
