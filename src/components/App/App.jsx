@@ -4,7 +4,8 @@ import { ContactsForm } from '../ContactsForm/ContactsForm';
 import { Filter } from '../Filter/Filter';
 import { ContactsList } from '../ContactsList/ContactsList';
 import { useEffect } from 'react';
-import { fetchContacts } from '../../redux/contactsOperations';
+import { contactsOperations } from '../../redux';
+
 import {
   selectContacts,
   selectError,
@@ -15,6 +16,7 @@ import { Loader } from '../Loading/Loading';
 
 export function App() {
   const dispatch = useDispatch();
+  const { fetchContacts } = contactsOperations;
 
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
@@ -22,7 +24,7 @@ export function App() {
 
   useEffect(() => {
     dispatch(fetchContacts());
-  }, [dispatch]);
+  }, [dispatch, fetchContacts]);
 
   return (
     <Container>
