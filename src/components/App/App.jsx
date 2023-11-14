@@ -31,9 +31,7 @@ export function App() {
       <h2>Контакти</h2>
       <Filter />
       {contacts.length !== 0 && <ContactsList />}
-      {error && (
-        <Error text={'Something went wrong, please reload this page'} />
-      )}
+      {error && <Error text={'Щось пішло не так, оновіть сторінку.'} />}
       {isLoading && <Loader />}
     </Container>
   );
