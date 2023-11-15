@@ -14,7 +14,7 @@ import { selectContacts } from '../../redux/contactsSelectors';
 
 const schema = yup.object().shape({
   name: yup.string().required(`Це поле обов'язкове для заповнення`),
-  number: yup
+  phone: yup
     .string()
     .matches(
       /^\+?3?8?(0\d{9})$/,
@@ -42,14 +42,19 @@ export const ContactsForm = () => {
   };
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={{ name: '', phone: '' }}
       onSubmit={handleSubmitForm}
       validationSchema={schema}
     >
       <ContanctForm>
         <ContactLabel>
           Ім'я та прізвище
-          <ContactInput type="text" name="name" placeholder="Haber Serhii" />
+          <ContactInput
+            type="text"
+            name="name"
+            placeholder="Haber Serhii"
+            autoComplete="off"
+          />
           <ErrorMessage name="name">
             {msg => <ContactErrorMessage>{msg}</ContactErrorMessage>}
           </ErrorMessage>
@@ -57,8 +62,13 @@ export const ContactsForm = () => {
 
         <ContactLabel>
           Номер телефону
-          <ContactInput type="text" name="number" placeholder="+380931052345" />
-          <ErrorMessage name="number">
+          <ContactInput
+            type="text"
+            name="phone"
+            placeholder="+380931052345"
+            autoComplete="off"
+          />
+          <ErrorMessage name="phone">
             {msg => <ContactErrorMessage>{msg}</ContactErrorMessage>}
           </ErrorMessage>
         </ContactLabel>
